@@ -16,35 +16,45 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let admin = await Admin.findOne({ email }).select('+password');
+    const normalizedEmail = email.toLowerCase().trim();
+    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@mcehassan.ac.in').toLowerCase().trim();
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@123';
 
+    // Ensure default admin exists and has the correct password
+    const defaultHashedPassword = await hashPassword(adminPassword);
+    let admin = await Admin.findOne({ email: adminEmail }).select('+password');
     if (!admin) {
-      // Initialize default admin if doesn't exist
-      const defaultAdmin = await Admin.findOne({ email: process.env.ADMIN_EMAIL });
-      if (!defaultAdmin) {
-        const hashedPassword = await hashPassword(process.env.ADMIN_PASSWORD || 'Admin@123');
-        admin = await Admin.create({
-          name: 'Administrator',
-          email: process.env.ADMIN_EMAIL,
-          password: hashedPassword,
-          role: 'super-admin',
-        });
-      } else {
-        return NextResponse.json(
-          { error: 'Invalid credentials' },
-          { status: 401 }
-        );
-      }
+      admin = await Admin.create({
+        name: 'Administrator',
+        email: adminEmail,
+        password: defaultHashedPassword,
+        role: 'super-admin',
+      });
+    } else {
+      // Force update password to match environment configurations
+      admin.password = defaultHashedPassword;
+      await admin.save();
     }
 
-    const isPasswordValid = await comparePassword(password, admin.password);
+    // Now look up the requested user email
+    let targetAdmin = await Admin.findOne({ email: normalizedEmail }).select('+password');
+    if (!targetAdmin) {
+      return NextResponse.json(
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      );
+    }
 
+    const isPasswordValid = await comparePassword(password, targetAdmin.password);
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
+
+    // Set admin for remaining response tokens
+    admin = targetAdmin;
 
     // Update last login
     admin.lastLogin = new Date();

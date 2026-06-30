@@ -18,7 +18,7 @@ async function seedDatabase() {
     const Event = (await import('@/models/Event')).default;
 
     // Force clear old seeded news and events to refresh image URLs and resolve duplicates
-    await News.deleteMany({ author: 'Admin' });
+    await News.deleteMany({});
     await Event.deleteMany({});
 
     // Seed news using MCE's active slider images for bulletproof loading

@@ -4,44 +4,36 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { LogOut, Menu, X, Home, FileText, Calendar, Users, Building2, Mail, Grid, Settings, BarChart3 } from 'lucide-react';
+import { LogOut, Menu, X, Home, FileText, Calendar, Mail, ArrowRight, BarChart3, Plus } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [admin, setAdmin] = useState<any>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [stats, setStats] = useState({ news: 0, events: 0, faculty: 0, messages: 0 });
+  const [stats, setStats] = useState({ news: 0, events: 0, messages: 0 });
   const router = useRouter();
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem('adminToken');
     const user = localStorage.getItem('adminUser');
-
-    if (!token || !user) {
-      router.push('/admin/login');
-      return;
+    if (user) {
+      setAdmin(JSON.parse(user));
     }
-
-    setAdmin(JSON.parse(user));
     fetchStats();
-  }, [router]);
+  }, []);
 
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('adminToken');
       const responses = await Promise.all([
-        fetch('/api/news?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/events?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/faculty?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch('/api/news?limit=1'),
+        fetch('/api/events?limit=1'),
         fetch('/api/contact', { headers: { Authorization: `Bearer ${token}` } }),
       ]);
 
-      const [news, events, faculty, contacts] = await Promise.all(responses.map(r => r.json()));
+      const [news, events, contacts] = await Promise.all(responses.map(r => r.json()));
       
       setStats({
         news: news.pagination?.total || 0,
         events: events.pagination?.total || 0,
-        faculty: faculty.pagination?.total || 0,
         messages: contacts.data?.length || 0,
       });
     } catch (error) {
@@ -56,72 +48,53 @@ export default function AdminDashboard() {
   };
 
   const menuItems = [
-    { icon: <Home size={20} />, label: 'Dashboard', href: '/admin/dashboard' },
-    { icon: <FileText size={20} />, label: 'News', href: '/admin/news' },
-    { icon: <Calendar size={20} />, label: 'Events', href: '/admin/events' },
-    { icon: <Users size={20} />, label: 'Faculty', href: '/admin/faculty' },
-    { icon: <Building2 size={20} />, label: 'Departments', href: '/admin/departments' },
-    { icon: <Mail size={20} />, label: 'Messages', href: '/admin/contact' },
-    { icon: <Grid size={20} />, label: 'Gallery', href: '/admin/gallery' },
-    { icon: <Users size={20} />, label: 'Users', href: '/admin/users' },
-    { icon: <Settings size={20} />, label: 'Settings', href: '/admin/settings' },
-  ];
-
-  const statCards = [
-    { label: 'Total News', value: stats.news, icon: <FileText className="text-blue-600" />, color: 'bg-blue-100' },
-    { label: 'Total Events', value: stats.events, icon: <Calendar className="text-green-600" />, color: 'bg-green-100' },
-    { label: 'Faculty Members', value: stats.faculty, icon: <Users className="text-purple-600" />, color: 'bg-purple-100' },
-    { label: 'Messages', value: stats.messages, icon: <Mail className="text-orange-600" />, color: 'bg-orange-100' },
+    { icon: <Home size={18} />, label: 'Dashboard Overview', href: '/admin/dashboard' },
+    { icon: <FileText size={18} />, label: 'News Articles', href: '/admin/news' },
+    { icon: <Calendar size={18} />, label: 'Campus Events', href: '/admin/events' },
+    { icon: <Mail size={18} />, label: 'Contact Messages', href: '/admin/contact' },
   ];
 
   if (!admin) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-gray-600">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
+        <div className="text-slate-400 font-extrabold text-xs uppercase tracking-wider animate-pulse">
+          Loading Admin Context...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
+      
       {/* Sidebar */}
-      <motion.div
-        initial={{ x: -300 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.3 }}
-        className={`${sidebarOpen ? 'w-64' : 'w-0'} bg-gray-900 text-white transition-all duration-300 overflow-hidden flex flex-col`}
+      <div
+        className={`${
+          sidebarOpen ? 'w-64' : 'w-0'
+        } bg-slate-900 text-slate-100 transition-all duration-300 overflow-hidden flex flex-col z-30 shadow-xl border-r border-slate-800`}
       >
-        {/* Logo */}
-        <div className="p-6 border-b border-gray-700">
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <div className="w-10 h-10 bg-white rounded flex items-center justify-center overflow-hidden p-1 shadow-md flex-shrink-0">
-              <img
-                src="/logo.png"
-                alt="MCE Logo"
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const parent = e.currentTarget.parentElement;
-                  if (parent && !parent.querySelector('.fallback-text')) {
-                    const textNode = document.createElement('span');
-                    textNode.className = 'text-blue-600 font-bold fallback-text';
-                    textNode.innerText = 'MCE';
-                    parent.appendChild(textNode);
-                  }
-                }}
-              />
-            </div>
-            Admin
-          </h1>
+        {/* Branding header */}
+        <div className="p-6 border-b border-slate-800 flex items-center gap-3">
+          <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1 shadow-md">
+            <img src="/logo.png" alt="MCE" className="w-full h-full object-contain" />
+          </div>
+          <div>
+            <h1 className="text-base font-black tracking-tight text-white uppercase leading-none">MCE Hassan</h1>
+            <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest mt-1 block">Admin CMS</span>
+          </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        {/* Navigation list */}
+        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
           {menuItems.map((item, idx) => (
             <Link
               key={idx}
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-sm"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition font-semibold text-xs uppercase tracking-wider ${
+                idx === 0 
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/10' 
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              }`}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -129,110 +102,136 @@ export default function AdminDashboard() {
           ))}
         </nav>
 
-        {/* Footer */}
-        <div className="p-4 border-t border-gray-700">
+        {/* Footer logout */}
+        <div className="p-4 border-t border-slate-800">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-sm font-medium"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-950/40 hover:text-red-400 transition text-xs font-bold uppercase tracking-wider text-slate-400 cursor-pointer"
           >
-            <LogOut size={20} />
-            Logout
+            <LogOut size={18} />
+            Sign Out
           </button>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Main Content */}
+      {/* Main Content Workspace */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Bar */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        
+        {/* Header Bar */}
+        <header className="bg-white border-b border-slate-150 px-6 py-4 flex items-center justify-between shadow-sm z-20">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition cursor-pointer"
           >
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <Link href="/" className="text-blue-600 hover:text-blue-800 font-semibold">
-            ← View Website
-          </Link>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8"
+          
+          <div className="flex items-center gap-4">
+            <span className="text-xs font-black text-slate-400 uppercase tracking-wider">
+              Role: <span className="text-blue-600">{admin.role}</span>
+            </span>
+            <Link 
+              href="/" 
+              target="_blank"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition flex items-center gap-1.5"
             >
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome, {admin.name}!</h1>
-              <p className="text-gray-600">Here's your admin dashboard overview</p>
-            </motion.div>
+              Live Website <ArrowRight size={12} />
+            </Link>
+          </div>
+        </header>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {statCards.map((stat, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 20 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="bg-white rounded-lg shadow p-6 flex items-center justify-between"
-                >
-                  <div>
-                    <p className="text-gray-600 text-sm mb-2">{stat.label}</p>
-                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-                  </div>
-                  <div className={`${stat.color} p-4 rounded-lg`}>
-                    {stat.icon}
-                  </div>
-                </motion.div>
-              ))}
+        {/* Main Content Scroll Area */}
+        <main className="flex-1 overflow-y-auto bg-slate-50/50 p-6 sm:p-8">
+          <div className="max-w-5xl mx-auto space-y-8">
+            
+            {/* Page Title banner */}
+            <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 text-white shadow relative overflow-hidden">
+              <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-6 translate-y-6">
+                <BarChart3 size={240} />
+              </div>
+              <h2 className="text-3xl font-black tracking-tight mb-2">Welcome Back, {admin.name}</h2>
+              <p className="text-slate-300 text-sm font-medium">
+                Manage your college's public news broadcasts, fests calendar events, and direct inquiry messages cleanly.
+              </p>
             </div>
 
-            {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Quick Stats Summary */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Total News */}
+              <div className="bg-white border border-slate-150 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Total Broadcasts</span>
+                  <h3 className="text-3xl font-black text-slate-900 mt-1">{stats.news}</h3>
+                </div>
+                <div className="bg-blue-50 text-blue-600 p-3 rounded-xl">
+                  <FileText size={24} />
+                </div>
+              </div>
+
+              {/* Total Events */}
+              <div className="bg-white border border-slate-150 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Active Events</span>
+                  <h3 className="text-3xl font-black text-slate-900 mt-1">{stats.events}</h3>
+                </div>
+                <div className="bg-green-50 text-green-600 p-3 rounded-xl">
+                  <Calendar size={24} />
+                </div>
+              </div>
+
+              {/* Messages Inbox */}
+              <div className="bg-white border border-slate-150 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Helpdesk Messages</span>
+                  <h3 className="text-3xl font-black text-slate-900 mt-1">{stats.messages}</h3>
+                </div>
+                <div className="bg-purple-50 text-purple-600 p-3 rounded-xl">
+                  <Mail size={24} />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Quick Actions CMS Portal */}
+            <div className="bg-white border border-slate-150 rounded-3xl p-8 shadow-sm">
+              <h3 className="text-base font-black text-slate-900 uppercase tracking-wider mb-6">CMS Content Management Actions</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
                 <Link
                   href="/admin/news/create"
-                  className="p-4 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition text-center font-semibold text-blue-600"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-xl text-center text-xs uppercase tracking-wider transition shadow-md shadow-blue-600/10 flex items-center justify-center gap-1.5"
                 >
-                  + Create News
+                  <Plus size={14} /> Create News
                 </Link>
+
                 <Link
                   href="/admin/events/create"
-                  className="p-4 border-2 border-green-600 rounded-lg hover:bg-green-50 transition text-center font-semibold text-green-600"
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold p-4 rounded-xl text-center text-xs uppercase tracking-wider transition shadow-md shadow-green-600/10 flex items-center justify-center gap-1.5"
                 >
-                  + Create Event
+                  <Plus size={14} /> Create Event
                 </Link>
-                <Link
-                  href="/admin/faculty/create"
-                  className="p-4 border-2 border-purple-600 rounded-lg hover:bg-purple-50 transition text-center font-semibold text-purple-600"
-                >
-                  + Add Faculty
-                </Link>
+
                 <Link
                   href="/admin/news"
-                  className="p-4 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition text-center font-semibold text-gray-600"
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold p-4 rounded-xl text-center text-xs uppercase tracking-wider transition flex items-center justify-center"
                 >
                   Manage News
                 </Link>
+
                 <Link
-                  href="/admin/contact"
-                  className="p-4 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition text-center font-semibold text-gray-600"
+                  href="/admin/events"
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold p-4 rounded-xl text-center text-xs uppercase tracking-wider transition flex items-center justify-center"
                 >
-                  View Messages
+                  Manage Events
                 </Link>
-                <Link
-                  href="/admin/settings"
-                  className="p-4 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition text-center font-semibold text-gray-600"
-                >
-                  Settings
-                </Link>
+
               </div>
             </div>
+
           </div>
-        </div>
+        </main>
+
       </div>
     </div>
   );

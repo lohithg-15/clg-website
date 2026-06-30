@@ -125,15 +125,6 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-8 pt-6 border-t border-gray-300">
-            <p className="text-sm text-gray-600 text-center mb-3">Demo Credentials:</p>
-            <div className="bg-gray-100 p-3 rounded-lg text-sm">
-              <p className="text-gray-700"><strong>Email:</strong> admin@mcehassan.ac.in</p>
-              <p className="text-gray-700"><strong>Password:</strong> Admin@123</p>
-            </div>
-          </div>
-
           {/* Footer */}
           <div className="mt-8 text-center">
             <Link href="/" className="text-blue-600 hover:text-blue-800 text-sm font-medium">

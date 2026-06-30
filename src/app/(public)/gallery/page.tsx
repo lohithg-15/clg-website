@@ -27,27 +27,27 @@ export default function Gallery() {
     {
       title: 'Graduation Ceremony & Achievements',
       category: 'Life at MCE',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600'
+      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600'
     },
     {
       title: 'Advanced Engineering Lab Centers',
       category: 'Infrastructure',
-      image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=600'
+      image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=600'
     },
     {
       title: 'Digital Reference Library Hall',
       category: 'Infrastructure',
-      image: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5c?q=80&w=600'
+      image: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5c?w=600'
     },
     {
       title: 'Interactive Student Hackathon Forums',
       category: 'Life at MCE',
-      image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600'
+      image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600'
     },
     {
       title: 'Autonomous Student Lecture Theater',
       category: 'Infrastructure',
-      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600'
+      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600'
     }
   ];
 
