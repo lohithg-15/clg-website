@@ -3,11 +3,5 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": [
-    "MONGODB_URI",
-    "JWT_SECRET",
-    "ADMIN_EMAIL",
-    "ADMIN_PASSWORD"
-  ],
   "regions": ["blr1"]
 }
