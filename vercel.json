@@ -7,10 +7,7 @@
     "MONGODB_URI",
     "JWT_SECRET",
     "ADMIN_EMAIL",
-    "ADMIN_PASSWORD",
-    "NEXT_PUBLIC_API_URL",
-    "NEXT_PUBLIC_SITE_NAME",
-    "NEXT_PUBLIC_SITE_URL"
+    "ADMIN_PASSWORD"
   ],
   "regions": ["blr1"]
 }
