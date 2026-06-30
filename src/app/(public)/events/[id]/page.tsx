@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Clock, ArrowLeft, Users, ShieldAlert } from 'lucide-react';
 
-export default function EventDetails({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function EventDetails() {
+  const params = useParams();
+  const id = params?.id as string;
   const [event, setEvent] = useState<any>(null);
   const [otherEvents, setOtherEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

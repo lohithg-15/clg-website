@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Eye, ArrowLeft, Clock, FileText } from 'lucide-react';
 
-export default function NewsDetails({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function NewsDetails() {
+  const params = useParams();
+  const id = params?.id as string;
   const [article, setArticle] = useState<any>(null);
   const [otherNews, setOtherNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
