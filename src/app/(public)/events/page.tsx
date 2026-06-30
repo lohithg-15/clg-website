@@ -97,9 +97,12 @@ export default function Events() {
                     className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col justify-between"
                   >
                     <div>
-                      {/* Event Banner Placeholder */}
-                      <div className="h-48 bg-gradient-to-br from-mce-navy to-mce-maroon relative flex items-center justify-center p-6 text-white text-center">
-                        <div className="absolute inset-0 bg-black/20" />
+                      {/* Event Banner */}
+                      <div 
+                        style={event.image ? { backgroundImage: `url(${event.image})` } : {}}
+                        className={`h-48 ${event.image ? 'bg-cover bg-center' : 'bg-gradient-to-br from-mce-navy to-mce-maroon'} relative flex items-center justify-center p-6 text-white text-center`}
+                      >
+                        <div className="absolute inset-0 bg-black/45" />
                         <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold ${
                           isUpcoming ? 'bg-green-500 text-white' : 'bg-gray-500 text-white'
                         }`}>
@@ -109,7 +112,7 @@ export default function Events() {
                           <p className="text-xs uppercase tracking-widest text-mce-gold font-bold mb-1">
                             {event.category || 'MCE Event'}
                           </p>
-                          <h3 className="font-extrabold text-lg line-clamp-2">
+                          <h3 className="font-extrabold text-lg line-clamp-2 drop-shadow-md">
                             {event.title}
                           </h3>
                         </div>

@@ -362,8 +362,11 @@ export default function Home() {
                 >
                   <div>
                     {/* Visual card header */}
-                    <div className="h-44 bg-gradient-to-br from-mce-navy to-mce-maroon p-6 text-white flex flex-col justify-between relative">
-                      <div className="absolute inset-0 bg-black/25" />
+                    <div 
+                      style={item.image ? { backgroundImage: `url(${item.image})` } : {}}
+                      className={`h-44 ${item.image ? 'bg-cover bg-center' : 'bg-gradient-to-br from-mce-navy to-mce-maroon'} p-6 text-white flex flex-col justify-between relative`}
+                    >
+                      <div className="absolute inset-0 bg-black/45" />
                       <span className="bg-mce-gold text-mce-navy px-2.5 py-1 rounded text-[10px] font-extrabold uppercase tracking-wider relative z-10 w-fit">
                         Featured
                       </span>
