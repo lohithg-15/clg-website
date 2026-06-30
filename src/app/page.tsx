@@ -313,22 +313,19 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {highlights.map((hl, idx) => (
-              <div key={idx} style={{ perspective: 1000 }}>
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ 
-                    y: -8,
-                    rotateX: 8,
-                    rotateY: -8,
-                    scale: 1.02,
-                    boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 12px 16px -6px rgb(0 0 0 / 0.15)"
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  className="h-full"
-                >
+              <motion.div
+                key={idx}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 12px 16px -6px rgb(0 0 0 / 0.15)"
+                }}
+                className="h-full"
+              >
                 <Link
                   href={hl.href}
                   className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group hover:border-mce-gold/45 h-full"
@@ -347,7 +344,6 @@ export default function Home() {
                   </div>
                 </Link>
                 </motion.div>
-              </div>
             ))}
           </div>
         </div>
@@ -376,22 +372,19 @@ export default function Home() {
           {news.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item: any, idx: number) => (
-                <div key={item._id} style={{ perspective: 1000 }}>
-                  <motion.div
-                    className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group hover:border-mce-gold/30 h-full"
-                    initial={{ y: 20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ delay: idx * 0.1 }}
-                    viewport={{ once: true }}
-                    whileHover={{ 
-                      y: -8,
-                      rotateX: 8,
-                      rotateY: -8,
-                      scale: 1.02,
-                      boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 12px 16px -6px rgb(0 0 0 / 0.15)"
-                    }}
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
+                <motion.div
+                  key={item._id}
+                  className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group hover:border-mce-gold/30 h-full"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ 
+                    y: -8,
+                    scale: 1.02,
+                    boxShadow: "0 25px 30px -5px rgb(0 0 0 / 0.15), 0 12px 16px -6px rgb(0 0 0 / 0.15)"
+                  }}
+                >
                   <div>
                     {/* Visual card header */}
                     <div 
@@ -426,7 +419,6 @@ export default function Home() {
                     </Link>
                   </div>
                   </motion.div>
-                </div>
               ))}
             </div>
           ) : (
