@@ -94,7 +94,23 @@ export default function AdminDashboard() {
         {/* Logo */}
         <div className="p-6 border-b border-gray-700">
           <h1 className="text-2xl font-bold flex items-center gap-2">
-            <span className="bg-blue-600 px-2 py-1 rounded">MCE</span>
+            <div className="w-10 h-10 bg-white rounded flex items-center justify-center overflow-hidden p-1 shadow-md flex-shrink-0">
+              <img
+                src="/logo.png"
+                alt="MCE Logo"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent && !parent.querySelector('.fallback-text')) {
+                    const textNode = document.createElement('span');
+                    textNode.className = 'text-blue-600 font-bold fallback-text';
+                    textNode.innerText = 'MCE';
+                    parent.appendChild(textNode);
+                  }
+                }}
+              />
+            </div>
             Admin
           </h1>
         </div>

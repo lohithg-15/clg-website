@@ -54,8 +54,22 @@ export default function AdminLogin() {
         <div className="bg-white rounded-lg shadow-2xl p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl font-bold">MCE</span>
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden p-1 shadow-md">
+              <img
+                src="/logo.png"
+                alt="MCE Logo"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent && !parent.querySelector('.fallback-text')) {
+                    const textNode = document.createElement('span');
+                    textNode.className = 'text-white text-2xl font-bold fallback-text';
+                    textNode.innerText = 'MCE';
+                    parent.appendChild(textNode);
+                  }
+                }}
+              />
             </div>
             <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>
             <p className="text-gray-600 mt-2">Malnad College of Engineering</p>

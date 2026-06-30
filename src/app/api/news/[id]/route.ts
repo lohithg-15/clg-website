@@ -5,12 +5,13 @@ import { extractToken, verifyToken } from '@/lib/auth';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await dbConnect();
 
-    const news = await News.findById(params.id);
+    const news = await News.findById(id);
 
     if (!news) {
       return NextResponse.json(
@@ -35,9 +36,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await dbConnect();
 
     // Verify admin token
@@ -59,7 +61,7 @@ export async function PUT(
 
     const updates = await request.json();
     const news = await News.findByIdAndUpdate(
-      params.id,
+      id,
       updates,
       { new: true, runValidators: true }
     );
@@ -83,9 +85,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await dbConnect();
 
     // Verify admin token
@@ -105,7 +108,7 @@ export async function DELETE(
       );
     }
 
-    const news = await News.findByIdAndDelete(params.id);
+    const news = await News.findByIdAndDelete(id);
 
     if (!news) {
       return NextResponse.json(

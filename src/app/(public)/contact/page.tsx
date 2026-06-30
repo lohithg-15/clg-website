@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
@@ -33,127 +33,168 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full">
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-blue-100">Get in touch with Malnad College of Engineering</p>
+    <div className="w-full bg-gray-50 min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-mce-navy to-mce-navy-light text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-5xl font-black mb-4">Contact Admissions</h1>
+            <p className="text-xl text-blue-100 max-w-3xl leading-relaxed">
+              Get in touch with Malnad College of Engineering helpdesk. We are here to support your query.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-8"
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
             >
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-              </div>
+              <div className="bg-white p-8 rounded-2xl border border-gray-150 shadow-sm">
+                <span className="text-mce-maroon font-bold text-xs uppercase tracking-widest block mb-2">
+                  Find Us
+                </span>
+                <h3 className="text-2xl font-black text-mce-navy mb-8">Office Contacts</h3>
+                
+                <div className="space-y-6 text-sm">
+                  <div className="flex gap-4">
+                    <MapPin className="text-mce-gold flex-shrink-0 mt-1" size={24} />
+                    <div>
+                      <h4 className="font-extrabold text-mce-navy mb-1 text-[13px] uppercase tracking-wider">Address</h4>
+                      <p className="text-gray-500 font-semibold leading-relaxed">
+                        Malnad College of Engineering<br />
+                        Hassan, Karnataka - 573202<br />
+                        India
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="flex gap-4">
-                <MapPin className="text-blue-600 flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Address</h4>
-                  <p className="text-gray-600">
-                    Malnad College of Engineering<br />
-                    Hassan 573202<br />
-                    Karnataka, India
-                  </p>
-                </div>
-              </div>
+                  <div className="flex gap-4 border-t border-gray-50 pt-4">
+                    <Phone className="text-mce-gold flex-shrink-0 mt-1" size={24} />
+                    <div>
+                      <h4 className="font-extrabold text-mce-navy mb-1 text-[13px] uppercase tracking-wider">Admissions Helpdesk</h4>
+                      <p className="text-gray-500 font-semibold">+91 9449689093</p>
+                    </div>
+                  </div>
 
-              <div className="flex gap-4">
-                <Phone className="text-blue-600 flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Phone</h4>
-                  <p className="text-gray-600">+91 9449689093</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <Mail className="text-blue-600 flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Email</h4>
-                  <p className="text-gray-600">office@mcehassan.ac.in</p>
+                  <div className="flex gap-4 border-t border-gray-50 pt-4">
+                    <Mail className="text-mce-gold flex-shrink-0 mt-1" size={24} />
+                    <div>
+                      <h4 className="font-extrabold text-mce-navy mb-1 text-[13px] uppercase tracking-wider">Email Support</h4>
+                      <p className="text-gray-500 font-semibold">office@mcehassan.ac.in</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
             {/* Contact Form */}
-            <motion.form
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              onSubmit={handleSubmit}
-              className="lg:col-span-2 space-y-4"
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-2 bg-white p-8 sm:p-10 rounded-2xl border border-gray-150 shadow-sm"
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+              <span className="text-mce-maroon font-bold text-xs uppercase tracking-widest block mb-2">
+                Get In Touch
+              </span>
+              <h3 className="text-2xl font-black text-mce-navy mb-8">Send Us a Direct Message</h3>
 
               {submitted && (
-                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                  Message sent successfully! We'll get back to you soon.
+                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3.5 rounded-xl font-semibold mb-6 text-sm">
+                  ✔ Message sent successfully! Our helpdesk officers will respond to you soon.
                 </div>
               )}
 
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                required
-              />
+              <form onSubmit={handleSubmit} className="space-y-5 text-sm font-semibold text-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-gray-400 uppercase tracking-wider">Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-250 rounded-xl focus:outline-none focus:ring-2 focus:ring-mce-navy shadow-inner"
+                      required
+                    />
+                  </div>
 
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                required
-              />
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-gray-400 uppercase tracking-wider">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-250 rounded-xl focus:outline-none focus:ring-2 focus:ring-mce-navy shadow-inner"
+                      required
+                    />
+                  </div>
+                </div>
 
-              <input
-                type="tel"
-                placeholder="Your Phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                required
-              />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-gray-400 uppercase tracking-wider">Phone Number</label>
+                    <input
+                      type="tel"
+                      placeholder="Your Phone"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-250 rounded-xl focus:outline-none focus:ring-2 focus:ring-mce-navy shadow-inner"
+                      required
+                    />
+                  </div>
 
-              <input
-                type="text"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                required
-              />
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-gray-400 uppercase tracking-wider">Subject</label>
+                    <input
+                      type="text"
+                      placeholder="Subject"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-250 rounded-xl focus:outline-none focus:ring-2 focus:ring-mce-navy shadow-inner"
+                      required
+                    />
+                  </div>
+                </div>
 
-              <textarea
-                placeholder="Your Message"
-                rows={5}
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
-                required
-              ></textarea>
+                <div className="space-y-1.5">
+                  <label className="text-xs text-gray-400 uppercase tracking-wider">Message Description</label>
+                  <textarea
+                    placeholder="Your Message"
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-250 rounded-xl focus:outline-none focus:ring-2 focus:ring-mce-navy resize-none shadow-inner"
+                    required
+                  ></textarea>
+                </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
-              >
-                <Send size={20} />
-                {loading ? 'Sending...' : 'Send Message'}
-              </button>
-            </motion.form>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-mce-navy hover:bg-mce-navy-light text-white px-6 py-4 rounded-xl font-bold transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-md uppercase tracking-wider text-xs mt-4"
+                >
+                  <Send size={16} />
+                  {loading ? 'Sending Request...' : 'Send Query Message'}
+                </button>
+              </form>
+            </motion.div>
           </div>
         </div>
       </section>

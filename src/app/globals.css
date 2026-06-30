@@ -10,6 +10,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-mce-navy: #0b2545;
+  --color-mce-navy-light: #134074;
+  --color-mce-maroon: #800020;
+  --color-mce-gold: #e5b80b;
+  --color-mce-gold-hover: #cfa50a;
 }
 
 @media (prefers-color-scheme: dark) {
