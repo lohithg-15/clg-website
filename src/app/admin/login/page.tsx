@@ -44,17 +44,17 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white rounded-lg shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-150 p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden p-1 shadow-md">
+            <div className="w-16 h-16 bg-white border border-slate-150 rounded-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden p-2 shadow-inner">
               <img
                 src="/logo.png"
                 alt="MCE Logo"
@@ -118,10 +118,10 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-md"
             >
-              <LogIn size={20} />
-              {loading ? 'Logging in...' : 'Login to Dashboard'}
+              <LogIn size={18} />
+              {loading ? 'Verifying...' : 'Sign In to Console'}
             </button>
           </form>
 

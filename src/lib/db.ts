@@ -42,16 +42,6 @@ async function seedDatabase() {
         status: 'published',
         image: 'https://www.mcehassan.ac.in/secure-file/images?path=slider1.jpg',
         views: 85
-      },
-      {
-        title: "Distinguished Alumni Convention Hall Inauguration",
-        description: "The newly constructed Alumni Convention Centre funded by our global alumni association is scheduled to be inaugurated by the VTU Vice-Chancellor next month.",
-        content: "A landmark moment for MCE Hassan as we prepare to inaugurate the state-of-the-art Alumni Convention Centre. Built with contributions from MCE graduates spread across the globe, this convention center features a 500-seat digital auditorium, executive board rooms, and research incubation hubs. The inauguration ceremony will see global corporate leaders, university authorities, and pioneer batch members in attendance.",
-        date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        featured: true,
-        status: 'published',
-        image: 'https://www.mcehassan.ac.in/secure-file/images?path=slider2.jpg',
-        views: 240
       }
     ]);
 

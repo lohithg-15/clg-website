@@ -81,21 +81,25 @@ export default function Home() {
       icon: <Award className="w-8 h-8 text-mce-gold" />,
       title: 'UGC Autonomy Status',
       description: 'Dynamic syllabus, custom exam structures, and outcome-oriented curriculum.',
+      href: '/academics'
     },
     {
       icon: <Users className="w-8 h-8 text-mce-gold" />,
       title: 'Top Tier Faculty',
       description: 'Mentors with doctoral degrees, research publications, and rich industry backgrounds.',
+      href: '/about'
     },
     {
       icon: <Building2 className="w-8 h-8 text-mce-gold" />,
       title: 'State-of-the-Art Labs',
       description: 'High-speed computing centers, VLSI, robotics, and advanced mechanical workshops.',
+      href: '/academics'
     },
     {
       icon: <Briefcase className="w-8 h-8 text-mce-gold" />,
       title: 'Outstanding Placements',
       description: 'Excellent recruitment records with premium MNCs, IT leaders, and core engineering firms.',
+      href: '/placements'
     },
   ];
 
@@ -305,24 +309,28 @@ export default function Home() {
             {highlights.map((hl, idx) => (
               <motion.div
                 key={idx}
-                className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group hover:border-mce-gold/45"
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: idx * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div>
-                  <div className="w-14 h-14 rounded-xl bg-mce-navy/5 text-mce-navy flex items-center justify-center mb-6 group-hover:bg-mce-navy group-hover:text-white transition duration-300 shadow-inner">
-                    {hl.icon}
+                <Link
+                  href={hl.href}
+                  className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group hover:border-mce-gold/45 h-full"
+                >
+                  <div>
+                    <div className="w-14 h-14 rounded-xl bg-mce-navy/5 text-mce-navy flex items-center justify-center mb-6 group-hover:bg-mce-navy group-hover:text-white transition duration-300 shadow-inner">
+                      {hl.icon}
+                    </div>
+                    <h3 className="text-lg font-black text-mce-navy mb-3 group-hover:text-mce-maroon transition duration-200">
+                      {hl.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{hl.description}</p>
                   </div>
-                  <h3 className="text-lg font-black text-mce-navy mb-3 group-hover:text-mce-maroon transition duration-200">
-                    {hl.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{hl.description}</p>
-                </div>
-                <div className="mt-6 flex items-center text-xs font-bold text-mce-gold group-hover:translate-x-1.5 transition duration-200">
-                  Read Info <ChevronRight size={14} />
-                </div>
+                  <div className="mt-6 flex items-center text-xs font-bold text-mce-gold group-hover:translate-x-1.5 transition duration-200">
+                    Read Info <ChevronRight size={14} />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -451,7 +459,7 @@ export default function Home() {
                           : 'bg-white border-gray-100 hover:border-mce-gold/30 text-gray-700'
                       }`}
                     >
-                      <span className="text-xs font-black bg-red-650 text-white rounded px-1.5 py-0.5 uppercase tracking-wider">
+                      <span className="text-xs font-black bg-red-600 text-white rounded px-1.5 py-0.5 uppercase tracking-wider">
                         Play
                       </span>
                       <span className="text-xs font-bold line-clamp-2 leading-snug">
@@ -467,7 +475,7 @@ export default function Home() {
                   href="https://www.youtube.com/@MalnadCollegeofEngineering"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-red-650 hover:bg-red-700 text-white font-bold text-xs tracking-wider uppercase px-5 py-3 rounded-lg shadow-md transition"
+                  className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider uppercase px-5 py-3 rounded-lg shadow-md transition"
                 >
                   Visit YouTube Channel
                 </a>

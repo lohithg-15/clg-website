@@ -56,7 +56,16 @@ export default function News() {
                     viewport={{ once: true }}
                     className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition"
                   >
-                    <div className="h-48 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                    <div 
+                      style={item.image ? { backgroundImage: `url(${item.image})` } : {}}
+                      className={`h-48 ${item.image ? 'bg-cover bg-center' : 'bg-gradient-to-r from-blue-400 to-blue-600'} relative`}
+                    >
+                      {item.featured && (
+                        <span className="absolute top-4 left-4 bg-mce-gold text-slate-900 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow">
+                          Featured
+                        </span>
+                      )}
+                    </div>
                     <div className="p-6">
                       <p className="text-sm text-gray-500 mb-2">
                         {new Date(item.date).toLocaleDateString()}
