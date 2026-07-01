@@ -134,6 +134,9 @@ export default function Navbar() {
               <Link href="/gallery" className="hover:text-mce-gold transition font-semibold text-sm">
                 Gallery
               </Link>
+              <Link href="/news" className="hover:text-mce-gold transition font-semibold text-sm">
+                News
+              </Link>
               <Link href="/events" className="hover:text-mce-gold transition font-semibold text-sm">
                 Events
               </Link>
@@ -227,6 +230,13 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
             >
               Gallery
+            </Link>
+            <Link
+              href="/news"
+              className="block px-4 py-2.5 hover:bg-white/10 rounded-lg transition text-sm font-semibold"
+              onClick={() => setIsOpen(false)}
+            >
+              News
             </Link>
             <Link
               href="/events"
